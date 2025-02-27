@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <div class="container">
+        <h1>Movie Tickets</h1>
+        <div id="tickets" class="ticket-container"></div>
+    </div>
+    
+    <script>
+        async function fetchTickets() {
+            const response = await fetch('/api/tickets');
+            const tickets = await response.json();
+            const ticketsDiv = document.getElementById('tickets');
+            ticketsDiv.innerHTML = tickets.map(ticket => `
+                <div class="ticket">
+                    <h2>${ticket.movieName}</h2> <!-- Movie title as an h2 heading -->
+                    <p>Cinema: ${ticket.cinema}</p>
+                    <p>Showtime: ${ticket.showTime}</p>
+                    <p>Price: $${ticket.price}</p>
+                </div>
+            `).join('');
+        }
+
+        fetchTickets();
+    </script>
+</body>
+</html>
